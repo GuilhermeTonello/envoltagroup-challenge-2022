@@ -15,7 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -33,7 +33,7 @@ public class EnergyConsumption {
     private Long id;
     
     @Column(name = "createdAt", nullable = false)
-    private OffsetDateTime createdAt;
+    private LocalDateTime createdAt;
     
     @Column(name = "consumption", nullable = false)
     private BigDecimal consumption;

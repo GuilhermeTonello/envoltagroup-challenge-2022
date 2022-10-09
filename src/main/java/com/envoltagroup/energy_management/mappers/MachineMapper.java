@@ -26,17 +26,21 @@ public class MachineMapper {
                 .map(EnergyConsumptionMapper::fromEnergyConsumptionToEnergyConsumptionInformationDTO)
                 .collect(Collectors.toList());
         
-        return MachineInformationDTO.builder()
-                .id(machine.getId())
-                .title(machine.getTitle())
+        return MachineMapper.buildMachineInformationDTOFromMachine(machine)
                 .energyConsumptions(energyConsumptionInformationDTOS)
                 .build();
     }
 
     public static MachineInformationDTO fromMachineToMachineInformationDTO(Machine machine) {
+        return MachineMapper.buildMachineInformationDTOFromMachine(machine)
+                .build();
+    }
+    
+    private static MachineInformationDTO.MachineInformationDTOBuilder buildMachineInformationDTOFromMachine(Machine machine) {
         return MachineInformationDTO.builder()
                 .id(machine.getId())
                 .title(machine.getTitle())
-                .build();
+                .minimumEnergyInput(machine.getMinimumEnergyInput())
+                .maximumEnergyInput(machine.getMaximumEnergyInput());
     }
 }

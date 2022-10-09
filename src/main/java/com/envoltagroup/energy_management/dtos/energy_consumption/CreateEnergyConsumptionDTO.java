@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -18,7 +18,7 @@ public class CreateEnergyConsumptionDTO {
     
     @NotNull
     @JsonProperty("createdAt")
-    private OffsetDateTime createdAt;
+    private LocalDateTime createdAt;
 
     @NotNull
     @JsonProperty("consumption")
