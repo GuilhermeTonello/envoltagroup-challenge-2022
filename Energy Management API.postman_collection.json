@@ -1,0 +1,530 @@
+{
+	"info": {
+		"_postman_id": "06bce92f-f97c-4593-adbb-6a5945560992",
+		"name": "Energy Management API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "local",
+			"item": [
+				{
+					"name": "machines",
+					"item": [
+						{
+							"name": "Create machine",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Braço Robótico\",\r\n    \"minimumEnergyInput\": 10,\r\n    \"maximumEnergyInput\": 300\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local_url}}/v1/machines",
+									"host": [
+										"{{local_url}}"
+									],
+									"path": [
+										"v1",
+										"machines"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get machine by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local_url}}/v1/machines/1",
+									"host": [
+										"{{local_url}}"
+									],
+									"path": [
+										"v1",
+										"machines",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List machines",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local_url}}/v1/machines?expandConsumptions=true",
+									"host": [
+										"{{local_url}}"
+									],
+									"path": [
+										"v1",
+										"machines"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"disabled": true
+										},
+										{
+											"key": "size",
+											"value": "10",
+											"disabled": true
+										},
+										{
+											"key": "expandConsumptions",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update machine",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Máquina 1 - Editada\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local_url}}/v1/machines/1",
+									"host": [
+										"{{local_url}}"
+									],
+									"path": [
+										"v1",
+										"machines",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete machine",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{local_url}}/v1/machines/1",
+									"host": [
+										"{{local_url}}"
+									],
+									"path": [
+										"v1",
+										"machines",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add energy consumption to machine",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"createdAt\": \"2022-07-03T21:32:49.468\",\r\n    \"consumption\": 310\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local_url}}/v1/machines/1/energy-consumption",
+									"host": [
+										"{{local_url}}"
+									],
+									"path": [
+										"v1",
+										"machines",
+										"1",
+										"energy-consumption"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response;\r",
+									"if (response.code == 200) {\r",
+									"    const token = response.json().token;\r",
+									"    pm.collectionVariables.set(\"auth_token_local\", token);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/v1/auth/login",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{auth_token_local}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "heroku",
+			"item": [
+				{
+					"name": "machines",
+					"item": [
+						{
+							"name": "Create machine",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Secador de cabelo\",\r\n    \"minimumEnergyInput\": 1000,\r\n    \"maximumEnergyInput\": 1250\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{heroku_url}}/v1/machines",
+									"host": [
+										"{{heroku_url}}"
+									],
+									"path": [
+										"v1",
+										"machines"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get machine by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{heroku_url}}/v1/machines/2",
+									"host": [
+										"{{heroku_url}}"
+									],
+									"path": [
+										"v1",
+										"machines",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List machines",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{heroku_url}}/v1/machines?expandConsumptions=true",
+									"host": [
+										"{{heroku_url}}"
+									],
+									"path": [
+										"v1",
+										"machines"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"disabled": true
+										},
+										{
+											"key": "size",
+											"value": "10",
+											"disabled": true
+										},
+										{
+											"key": "expandConsumptions",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update machine",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Máquina 1 - Editada\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{heroku_url}}/v1/machines/1",
+									"host": [
+										"{{heroku_url}}"
+									],
+									"path": [
+										"v1",
+										"machines",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete machine",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{heroku_url}}/v1/machines/1",
+									"host": [
+										"{{heroku_url}}"
+									],
+									"path": [
+										"v1",
+										"machines",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add energy consumption to machine",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"createdAt\": \"2022-11-10T19:10:59.468\",\r\n    \"consumption\": 1203.4\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{heroku_url}}/v1/machines/2/energy-consumption",
+									"host": [
+										"{{heroku_url}}"
+									],
+									"path": [
+										"v1",
+										"machines",
+										"2",
+										"energy-consumption"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response;\r",
+									"if (response.code == 200) {\r",
+									"    const token = response.json().token;\r",
+									"    pm.collectionVariables.set(\"auth_token_local\", token);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{heroku_url}}/v1/auth/login",
+							"host": [
+								"{{heroku_url}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{auth_token_local}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "local_url",
+			"value": "http://localhost:8080",
+			"type": "default"
+		},
+		{
+			"key": "auth_token_local",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "heroku_url",
+			"value": "https://challengefiap2022envoltagruop.herokuapp.com",
+			"type": "default"
+		}
+	]
+}
